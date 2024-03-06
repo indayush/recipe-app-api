@@ -8,13 +8,21 @@ jobs:
     name: Test & Lint
     runs-on: ubuntu-20.04
     steps:
+
+      - name: Printing secrets
+        run: echo ${{ secrets.DOCKERHUB_USER }}
+        
       - name: Login to Docker Hub
+        env:
+          DOCKERHUB_TOKEN: ${{ env.DOCKERHUB_TOKEN }}
+          DOCKERHUB_USER: ${{ env.DOCKERHUB_USER }}
+          
         # "uses" utilises a preconfigured git action pipeline provided by Docker to login in Docker hub
         # uses: docker/login-action@v1
         # with:
         #   username: ${{ secrets.DOCKERHUB_USER }}
         #   password: ${{ secrets.DOCKERHUB_TOKEN }}
-        run: echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USER }} --password-stdin
+        run: echo $DOCKERHUB_TOKEN | docker login -u $DOCKERHUB_USER --password-stdin
 
       - name: Checkout
         # Provided by Github to checkout our code
