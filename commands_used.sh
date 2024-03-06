@@ -15,3 +15,6 @@ docker-compose run --rm app sh -c "django-admin startproject app ."
 
 # Start docker container via docker compose yml file
 docker-compose up
+
+# Used TDD approach, created Test Cases, and ran following command to test the code
+docker-compose run --rm app sh -c "python manage.py test"
