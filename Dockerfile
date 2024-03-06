@@ -6,22 +6,30 @@ LABEL maintainer="indayush.click"
 ENV PYTHONBUFFERED 1
 
 COPY ./requirements.txt /tmp/requirements.txt
+COPY ./requirements.dev.txt /tmp/requirements.dev.txt
+
 COPY ./app /app
 
 WORKDIR /app
 
 EXPOSE 8000
 
+# Setting DEV param as false (If run via Dockerfile, Dev=false   ;   If run via docker-compose, DEV=true)
+ARG DEV=false
+
 # Create Virtual Envs
 # Upgrade pip
-# install reuirements.txt
-# clears reuirements.txt file
+# install requirements.txt
+# install requirements.dev.txt if running on dev environment 
+# clears requirements.txt file
 # create "django-user" 
     # since best practice is to not use "root" user
-
 RUN python -m venv /py && \
         /py/bin/pip install --upgrade pip && \
         /py/bin/pip install -r /tmp/requirements.txt && \
+            if [ $DEV = "true" ]; \
+                then /py/bin/pip install -r /tmp/requirements.dev.txt ; \
+            fi && \
         rm -rf /tmp && \
         adduser \
             --disabled-password \
