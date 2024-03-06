@@ -1,0 +1,19 @@
+# Personal Creds
+creds/
+
+# Git
+.git
+.gitignore
+
+# Docker
+.docker
+
+# Python
+# Since pycache can be OS specific
+app/__pycache__/
+app/*/__pycache__/
+app/*/*/__pycache__/
+app/*/*/*/__pycache__/
+.env/
+.venv/
+venv/
