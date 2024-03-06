@@ -12,3 +12,6 @@ docker-compose run --rm app sh -c "which flake8"
 
 # Creates a django project named app
 docker-compose run --rm app sh -c "django-admin startproject app ."
+
+# Start docker container via docker compose yml file
+docker-compose up
