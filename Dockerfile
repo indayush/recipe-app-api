@@ -22,18 +22,24 @@ ARG DEV=false
 
 # Create Virtual Envs
 # Upgrade pip
+# Adding packages to install postgresql client on Alpine with all of its developer dependencies in tmp-build-deps
 # install requirements.txt
 # install requirements.dev.txt if running on dev environment 
 # clears requirements.txt file
+# deletes all the packages not required for execution in tmp-build-deps
 # create "django-user" 
     # since best practice is to not use "root" user
 RUN python -m venv /py && \
         /py/bin/pip install --upgrade pip && \
+        apk add --update --no-cache postgresql-client && \
+        apk add --update --no-cache --virtual .tmp-build-deps \ 
+            build-base postgresql-dev musl-dev && \
         /py/bin/pip install -r /tmp/requirements.txt && \
             if [ $DEV = "true" ]; \
                 then /py/bin/pip install -r /tmp/requirements.dev.txt ; \
             fi && \
         rm -rf /tmp && \
+        apk del .tmp-build-deps && \
         adduser \
             --disabled-password \
             --no-create-home \

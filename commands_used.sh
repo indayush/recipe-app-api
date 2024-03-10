@@ -18,3 +18,7 @@ docker-compose up
 
 # Used TDD approach, created Test Cases, and ran following command to test the code
 docker-compose run --rm app sh -c "python manage.py test"
+
+# Added changes to setup db for the application
+docker-compose down
+docker-compose build
