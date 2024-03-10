@@ -22,3 +22,7 @@ docker-compose run --rm app sh -c "python manage.py test"
 # Added changes to setup db for the application
 docker-compose down
 docker-compose build
+
+# Added tests to check if DB is up via using mocking
+#   (function overloading of default python functions like sleep and check) 
+docker-compose run --rm app sh -c "python manage.py wait_for_db && flake8"
