@@ -15,6 +15,9 @@ WORKDIR /app
 EXPOSE 8000
 
 # Setting DEV param as false (If run via Dockerfile, Dev=false   ;   If run via docker-compose, DEV=true)
+# If run via Dockerfile -> Production
+# If run via Docker Compose -> Dev
+
 ARG DEV=false
 
 # Create Virtual Envs
